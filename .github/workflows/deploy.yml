@@ -24,4 +24,5 @@ jobs:
           server: ${{ secrets.SERVER }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          server-dir: /www/wwwroot/beita
+          local-dir: ./dist/
+          server-dir: /home/beita/
