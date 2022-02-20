@@ -15,7 +15,7 @@ jobs:
 
       - name: 🔨 Build Project
         run: |
-          npx pnpm i
+          npm i
           npm run build
 
       - name: 📂 Sync files
@@ -25,4 +25,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           local-dir: ./dist/
-          server-dir: /home/beita/
+          server-dir: ./
