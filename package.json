@@ -15,12 +15,6 @@
       "eslint --fix"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "branch=`git branch | grep \\* | cut -d ' ' -f2`;branchesToCheck=(\"develop\" \"master\"); [[ \" ${branchesToCheck[@]} \" =~ \" ${branch} \" ]] &&  npm run lint:type || exit 0"
-    }
-  },
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -34,7 +28,7 @@
     "eslint": "^8.9.0",
     "eslint-config-alloy": "^4.5.1",
     "eslint-plugin-react": "^7.28.0",
-    "husky": "^7.0.0",
+    "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "typescript": "^4.5.5",
     "vite": "^2.8.0"
