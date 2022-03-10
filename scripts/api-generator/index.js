@@ -8,7 +8,7 @@ const outputDir = path.resolve(process.cwd(), './src/api/shuke');
 generateApi({
   // input: path.resolve(__dirname, "./schemas.json"),
   // url: 'http://shuke.cccboy.com/api-json',
-  url: 'http://localhost:8100/api-json',
+  url: 'http://shuke.cccboy.com/api-json',
   templates: path.resolve(__dirname, './templates'),
   name: 'Api.ts',
   output: outputDir,
