@@ -1,22 +1,18 @@
 on:
   push:
-    branches: [ master, develop ]
-name: 🚀 Deploy website on push
+    branches:
+      - master
+name: 🚀 【Production】Deploy website on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Set Production Env
-        if: github.ref == 'refs/heads/master'
-        env:
-          use: production
+    environment:
+      name: production
+      url: http://beita.cccboy.com
 
-      - name: Set Alpha Env
-        if: github.ref == 'refs/heads/alpha'
-        env:
-          use: alpha
+    steps:
 
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
