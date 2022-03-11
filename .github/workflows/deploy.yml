@@ -6,10 +6,18 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'alpha' }}
 
-    #    environment: github.ref == 'refs/heads/master' && production || alpha
     steps:
+      - name: Set Production Env
+        if: github.ref == 'refs/heads/master'
+        env:
+          use: production
+
+      - name: Set Alpha Env
+        if: github.ref == 'refs/heads/alpha'
+        env:
+          use: alpha
+
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
