@@ -3,6 +3,8 @@ import { commonStorage } from '../common/common-storage';
 
 const api = new Api({ baseURL: import.meta.env.VITE_SHUKE_API_URL });
 
+console.log(import.meta.env, 'import.meta.env');
+
 api.instance.interceptors.request.use(
   (config) => {
     // Do something before request is sent
