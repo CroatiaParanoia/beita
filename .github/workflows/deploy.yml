@@ -1,9 +1,14 @@
-on: push
+on:
+  push:
+    branches: [ master, develop ]
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'alpha' }}
+
+    #    environment: github.ref == 'refs/heads/master' && production || alpha
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
@@ -13,16 +18,21 @@ jobs:
         with:
           node-version: '14'
 
+      - name: 🙈 Create Env File
+        run: |
+          touch .env
+          echo VITE_SHUKE_API_URL=${{ secrets.VITE_SHUKE_API_URL }} >> .env
+
       - name: 🔨 Build Project
         run: |
-          npm i
+          npm ci
           npm run build
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: ${{ secrets.SERVER }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ./
