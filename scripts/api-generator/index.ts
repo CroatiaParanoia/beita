@@ -1,14 +1,18 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { generateApi } = require('swagger-typescript-api');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const path = require('path');
+import { generateApi } from 'swagger-typescript-api';
+import path from 'path';
+import dotenv from 'dotenv';
+
+const envConfig = dotenv.config();
+
 const outputDir = path.resolve(process.cwd(), './src/api/shuke');
 
+// @ts-ignore
+const env = envConfig.parsed! as ImportMeta['env'];
+
 /* NOTE: all fields are optional expect one of `output`, `url`, `spec` */
+// @ts-ignore
 generateApi({
-  // input: path.resolve(__dirname, "./schemas.json"),
-  // url: 'http://shuke.cccboy.com/api-json',
-  url: 'http://shuke.cccboy.com/api-json',
+  url: env.VITE_SHUKE_SWAGGER_URL,
   templates: path.resolve(__dirname, './templates'),
   name: 'Api.ts',
   output: outputDir,

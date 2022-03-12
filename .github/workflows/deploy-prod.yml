@@ -26,6 +26,8 @@ jobs:
         run: |
           touch .env
           echo VITE_SHUKE_API_URL=${{ secrets.VITE_SHUKE_API_URL }} >> .env
+          echo VITE_API_ENV=${{ secrets.VITE_API_ENV }} >> .env
+          echo VITE_SHUKE_SWAGGER_URL=${{ secrets.VITE_SHUKE_SWAGGER_URL }} >> .env
 
       - name: 🔨 Build Project
         run: |

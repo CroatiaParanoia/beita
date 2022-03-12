@@ -9,7 +9,8 @@
     "prepare": "husky install",
     "lint": "npx eslint ./src/**/**",
     "lint:type": "tsc",
-    "genApi": "node ./scripts/api-generator"
+    "postinstall": "npm run genApi",
+    "genApi": "ts-node --project tsconfig.scripts.json ./scripts/api-generator"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -35,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "@vitejs/plugin-react": "^1.0.7",
+    "dotenv": "^16.0.0",
     "eslint": "^8.9.0",
     "eslint-config-alloy": "^4.5.1",
     "eslint-plugin-react": "^7.28.0",
@@ -44,6 +46,7 @@
     "prettier": "^2.5.1",
     "sass": "^1.49.9",
     "swagger-typescript-api": "^9.3.1",
+    "ts-node": "^10.7.0",
     "typescript": "^4.5.5",
     "vite": "^2.8.0",
     "vite-plugin-windicss": "^1.8.2",
