@@ -3,18 +3,41 @@ on:
     branches:
       - alpha
       - master
+
 name: 🚀 Deploy website on push
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  job1:
+    name: compute-env-name
     runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.step1.outputs.env_name }}
+    steps:
+      - name: get env name
+        id: step1
+        run: |
+          branch_name=${refs: 11}
+          if [ "$branch_name" = "master" ]; then
+            env_name="production"
+          else
+            env_name=$branch_name
+          fi
+          echo "环境：${env_name}"
+          echo "::set-output name=env_name::$env_name"
+
+        env:
+          refs: ${{github.ref}}
+
+
+  web-deploy:
+    name: 🎉 【${{ needs.job1.outputs.env_name }}】Deploy
+    runs-on: ubuntu-latest
+    needs: job1
 
     environment:
-      name: ${{ github.ref == 'refs/heads/master' && 'production' || 'alpha' }}
-      url: ${{ github.ref == 'refs/heads/master' && 'http://beita.cccboy.com' || 'http://beita-alpha.cccboy.com' }}
+      name: ${{ needs.job1.outputs.env_name }}
+      url: ${{ needs.job1.outputs.env_name == 'production' && 'http://beita.cccboy.com' || 'http://beita-alpha.cccboy.com' }}
 
     steps:
-
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
