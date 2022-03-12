@@ -26,5 +26,6 @@ dist-ssr
 pnpm-lock.yaml
 
 .env
-src/api/shuku/
 
+
+/src/api/shuke/Api.ts
