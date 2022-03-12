@@ -1,8 +1,8 @@
 import { atom, selector } from 'recoil';
-import { UserInfo } from '@api/shuke/Api';
+import { Gender, UserInfo } from '@api/shuke/Api';
 import { commonStorage } from '../common/common-storage';
 
-const defaultUserInfo: UserInfo = {
+export const defaultUserInfo: UserInfo = {
   token: '',
   id: 0,
   username: '',
@@ -11,12 +11,25 @@ const defaultUserInfo: UserInfo = {
   deleteAt: '',
   email: '',
   nickname: '',
-  gender: 'male',
+  gender: Gender.Male,
 };
 
 export const userInfoAtom = atom<UserInfo>({
   key: 'userInfo',
-  default: commonStorage.get('userInfo') || defaultUserInfo,
+  default: defaultUserInfo,
+  effects: [
+    ({ onSet }) => {
+      onSet((newValue, oldValue, isReset) => {
+        if (isReset) {
+          commonStorage.remove('userInfo');
+          commonStorage.remove('token');
+          return;
+        }
+        commonStorage.set('userInfo', newValue);
+        commonStorage.set('token', newValue.token);
+      });
+    },
+  ],
 });
 
 export const isLoginAtom = selector({

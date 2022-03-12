@@ -8,10 +8,9 @@ import { PageContainer } from '../../components/PageContainer';
 import api from '../../api';
 import { userInfoAtom } from '@store/user';
 import { useRecoilState } from 'recoil';
-import { commonStorage } from '../../common/common-storage';
 
 export const LoginPage = () => {
-  const [{ PathType }, { getPath, awesomeNavigate }] = useAppNavigate();
+  const [{ PathType }, { getPath, appNavigate }] = useAppNavigate();
 
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
@@ -37,10 +36,7 @@ export const LoginPage = () => {
     }
 
     setUserInfo(curUserInfo);
-    commonStorage.set('userInfo', curUserInfo);
-    commonStorage.set('token', curUserInfo.token);
-
-    awesomeNavigate(PathType.Home, { replace: true });
+    appNavigate(PathType.Home, { replace: true });
 
     // const userInfo = res.data;
     //

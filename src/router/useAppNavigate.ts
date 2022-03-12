@@ -19,7 +19,7 @@ export const useAppNavigate = () => {
     return path;
   });
 
-  const awesomeNavigate = useMemoizedFn(
+  const appNavigate = useMemoizedFn(
     <T extends PathType>(pathType: T, options?: NavigateOptions & { params?: PathParamsMapping[T] }) => {
       const { params, ...otherOptions } = options || {};
       const path = getPath(pathType, params);
@@ -28,5 +28,5 @@ export const useAppNavigate = () => {
     },
   );
 
-  return [{ PathType }, { awesomeNavigate, getPath }] as const;
+  return [{ PathType }, { appNavigate, getPath }] as const;
 };

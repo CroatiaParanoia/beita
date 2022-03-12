@@ -70,6 +70,12 @@ export class Storage<Mapping extends Record<string, any>> {
     return null;
   }
 
+  remove<Key extends keyof Mapping>(key: Key) {
+    const realKey = this.#getKey(key);
+
+    this.#storage.removeItem(realKey);
+  }
+
   #getKey(key: string | number | symbol): string {
     if (this.#prefix) {
       const tempPrefix = ([] as string[]).concat(this.#prefix);

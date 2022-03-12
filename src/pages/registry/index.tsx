@@ -1,34 +1,71 @@
 import { Link } from 'react-router-dom';
-import { Button, Divider, Form, Input } from 'antd-mobile';
+import { Button, Divider, Form, Input, Toast } from 'antd-mobile';
 import { useAppNavigate } from '../../router';
 import { useMemo } from 'react';
 import { PageContainer } from '../../components/PageContainer';
 import { useMemoizedFn } from 'ahooks';
+import api from '@api';
+import { UserRegistryReqDto } from '@api/shuke/Api';
+import to from 'await-to-js';
+import { sleep } from '@utils/common';
+import { useSetRecoilState } from 'recoil';
+import { userInfoAtom } from '@store/user';
 
 export const RegistryPage = () => {
-  const [{ PathType }, { getPath }] = useAppNavigate();
-
+  const [{ PathType }, { getPath, appNavigate }] = useAppNavigate();
+  const setUserInfo = useSetRecoilState(userInfoAtom);
   const [form] = Form.useForm();
 
   const loginPath = useMemo(() => {
     return getPath(PathType.Login);
   }, []);
 
+  const registry = useMemoizedFn(async (info: UserRegistryReqDto) => {
+    const [err, res] = await to(api.user.userControllerRegistry(info));
+
+    if (err || !res) {
+      return;
+    }
+    const { code, data: userInfo, message } = res;
+
+    if (!code) {
+      Toast.show('注册成功，即将前往首页');
+      setUserInfo(userInfo);
+
+      await sleep(1000);
+
+      appNavigate(PathType.Home);
+      return;
+    }
+
+    Toast.show(message);
+  });
+
   const handleFinish = useMemoizedFn((value) => {
-    console.log(value, 'valueeee');
+    registry(value);
   });
 
   return (
     <PageContainer title="注册" className="registry-page h-full flex flex-col ">
       <div className="h-full px-24px  flex flex-col relative items-center">
-        <div className="w-120px h-120px bg-blue-300 flex justify-center items-center mt-64px mb-44px rounded-24px">
+        <div className="w-120px h-120px bg-blue-300 flex justify-center items-center mt-44px mb-24px rounded-24px">
           这是LOGO
         </div>
-        <Form form={form} className="w-full" requiredMarkStyle="text-required" onFinish={handleFinish}>
+        <Form
+          form={form}
+          className="w-full"
+          requiredMarkStyle="text-required"
+          onFinish={handleFinish}
+          validateTrigger={['onBlur']}
+        >
           <Form.Item label="用户名" name="username" rules={[{ required: true }]}>
             <Input placeholder="请输入用户名" clearable />
           </Form.Item>
-          <Form.Item label="邮箱" name="email" rules={[{ required: true }]}>
+          <Form.Item
+            label="邮箱"
+            name="email"
+            rules={[{ required: true }, { type: 'email', message: '你这邮箱不对呀' }]}
+          >
             <Input placeholder="请输入用户名" clearable />
           </Form.Item>
           <Form.Item label="密码" name="password" rules={[{ required: true }]}>
