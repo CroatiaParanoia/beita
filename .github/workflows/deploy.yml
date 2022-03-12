@@ -33,10 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: job1
 
-    environment:
-      name: ${{ needs.job1.outputs.env_name }}
-      url: ${{ needs.job1.outputs.env_name == 'production' && 'http://beita.cccboy.com' || 'http://beita-alpha.cccboy.com' }}
-
+    environment: ${{ needs.job1.outputs.env_name }}
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
