@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - disabled
 name: 🚀 【Production】Deploy website on push
 jobs:
   web-deploy:

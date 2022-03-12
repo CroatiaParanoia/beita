@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - alpha
+      - master
 name: 🚀 【Alpha】Deploy website on push
 jobs:
   web-deploy:
@@ -9,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: alpha
-      url: http://beita-alpha.cccboy.com
+      name: ${{ github.ref == 'refs/heads/master' && 'production' || 'alpha' }}
+      url: ${{ github.ref == 'refs/heads/master' && 'http://beita.cccboy.com' || 'http://beita-alpha.cccboy.com' }}
 
     steps:
 
