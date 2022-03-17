@@ -43,7 +43,7 @@ export const HomePage = () => {
         更新用户信息
       </Button>
       <Button color="primary" onClick={logout}>
-        登出
+        登出123
       </Button>
       <Avatar />
     </div>
