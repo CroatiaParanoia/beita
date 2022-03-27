@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { defaultUserInfo, userInfoAtom } from '@store/user';
-import { Avatar } from '../../components/Avatar';
 import { useMemoizedFn } from 'ahooks';
-import { Button, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import api from '@api';
 import to from 'await-to-js';
+import { Header, PageContainer } from '@components';
+import { AddCircleOutline } from 'antd-mobile-icons';
+import { useAppNavigate } from '../../router';
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -34,18 +36,17 @@ export const HomePage = () => {
   const logout = useMemoizedFn(() => {
     setUserInfo(defaultUserInfo);
   });
+  const [{ PathType }, { appNavigate }] = useAppNavigate();
+
+  const toCreateDream = () => {
+    appNavigate(PathType.DreamCreate);
+  };
 
   return (
-    <div>
-      <div className="ml-24px text-100px">首页</div>
-      {username}, {email}, {gender}
-      <Button color="primary" onClick={updateUserInfo}>
-        更新用户信息
-      </Button>
-      <Button color="primary" onClick={logout}>
-        登出123
-      </Button>
-      <Avatar />
-    </div>
+    <PageContainer>
+      <Header backArrow={false} right={<AddCircleOutline className="text-22px" onClick={toCreateDream} />}>
+        梦之广场
+      </Header>
+    </PageContainer>
   );
 };

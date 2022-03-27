@@ -1,10 +1,14 @@
 import { FC } from 'react';
-import { ClearEmpty } from '../typing';
 
 export enum PathType {
   Home = 'HomePage',
   Login = 'LoginPage',
   Registry = 'RegistryPage',
+  Me = 'Me',
+  Setting = 'Setting',
+  Profile = 'Profile',
+  Dreams = 'Dreams',
+  DreamCreate = 'DreamCreate',
 }
 
 export type PagePathMapping = Record<PathType, string[]>;
@@ -13,17 +17,15 @@ type PathParamsType<T extends string> = {
   [x in T]?: string;
 };
 
-export interface PathParamsMapping {
+type BasePathParamsMapping = {
+  [x in PathType]: any;
+};
+
+export interface PathParamsMapping extends BasePathParamsMapping {
   [PathType.Home]: PathParamsType<'home' | 'home2'>;
   [PathType.Login]: PathParamsType<'login' | 'login2'>;
   [PathType.Registry]: PathParamsType<'registry' | 'registry2'>;
 }
-
-type A = PathParamsMapping[PathType.Home];
-
-type B = ClearEmpty<A>;
-
-type K = keyof B;
 
 export interface RouteLocalItem {
   pathType: PathType;

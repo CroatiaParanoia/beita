@@ -3,7 +3,7 @@ import { Button, Divider, Form, Input, Toast } from 'antd-mobile';
 import { useAppNavigate } from '../../router';
 import { useMemo } from 'react';
 import { PageContainer } from '../../components/PageContainer';
-import { useMemoizedFn } from 'ahooks';
+import { useMemoizedFn, useTitle } from 'ahooks';
 import api from '@api';
 import { UserRegistryReqDto } from '@api/shuke/Api';
 import to from 'await-to-js';
@@ -44,9 +44,9 @@ export const RegistryPage = () => {
   const handleFinish = useMemoizedFn((value) => {
     registry(value);
   });
-
+  useTitle('注册');
   return (
-    <PageContainer title="注册" className="registry-page h-full flex flex-col ">
+    <PageContainer className="registry-page h-full flex flex-col ">
       <div className="h-full px-24px  flex flex-col relative items-center">
         <div className="w-120px h-120px bg-blue-300 flex justify-center items-center mt-44px mb-24px rounded-24px">
           这是LOGO

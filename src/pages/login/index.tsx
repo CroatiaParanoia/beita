@@ -8,6 +8,7 @@ import { PageContainer } from '../../components/PageContainer';
 import api from '../../api';
 import { userInfoAtom } from '@store/user';
 import { useRecoilState } from 'recoil';
+import { useTitle } from 'ahooks';
 
 export const LoginPage = () => {
   const [{ PathType }, { getPath, appNavigate }] = useAppNavigate();
@@ -43,8 +44,10 @@ export const LoginPage = () => {
     // setUserInfo(userInfo);
   };
 
+  useTitle('登录');
+
   return (
-    <PageContainer title="登录" className="login-page page  h-full flex flex-col justify-center">
+    <PageContainer className="login-page page  h-full flex flex-col justify-center">
       <div className="login-container h-full px-24px flex flex-col items-center">
         <div className="w-120px h-120px bg-blue-300 flex justify-center items-center mt-64px mb-44px rounded-24px">
           这是LOGO

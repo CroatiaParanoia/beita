@@ -19,6 +19,29 @@ export const useAppNavigate = () => {
     return path;
   });
 
+  const getPathType = useMemoizedFn((path?: string) => {
+    const pathname = path || window.location.pathname;
+
+    const realPath = pathname.split('?')[0];
+    const pathType = Object.keys(pagePathMapping).find((v: any) => {
+      return pagePathMapping[v as PathType].includes(realPath);
+    });
+
+    if (!pathType) return undefined;
+
+    return pathType as PathType;
+  });
+
+  const getPathTypeOrThrow = useMemoizedFn((path?: string) => {
+    const pathType = getPathType(path);
+
+    if (!pathType) {
+      throw new Error(`【path error】 ${path}`);
+    }
+
+    return pathType;
+  });
+
   const appNavigate = useMemoizedFn(
     <T extends PathType>(pathType: T, options?: NavigateOptions & { params?: PathParamsMapping[T] }) => {
       const { params, ...otherOptions } = options || {};
@@ -28,5 +51,5 @@ export const useAppNavigate = () => {
     },
   );
 
-  return [{ PathType }, { appNavigate, getPath }] as const;
+  return [{ PathType }, { appNavigate, getPath, getPathType, getPathTypeOrThrow }] as const;
 };
