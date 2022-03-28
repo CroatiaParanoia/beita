@@ -1,7 +1,10 @@
 import { CSSProperties } from 'react';
 
-export interface AvatarProps {
+export interface LocalAvatarProps {
   className?: string;
 
   style?: CSSProperties;
+
+  nickname: string;
+  userId: number;
 }

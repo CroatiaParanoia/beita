@@ -23,13 +23,3 @@ export const useAppSearchParams = <T extends PathType>() => {
 
   return { get, getAll, set };
 };
-
-const app = () => {
-  const searchParams = useAppSearchParams<PathType.Home>();
-
-  const value2 = searchParams.get('home');
-
-  searchParams.set('home', '123');
-
-  const v = searchParams.getAll();
-};

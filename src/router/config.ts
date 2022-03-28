@@ -9,7 +9,7 @@ import { DreamsPage } from '@pages/dreams';
 import { DreamCreatePage } from '@pages/dream-create';
 
 export const pagePathMapping: PagePathMapping = {
-  [PathType.Home]: ['/home'],
+  [PathType.Home]: ['/', '/home'],
   [PathType.Login]: ['/login', '/login2'],
   [PathType.Registry]: ['/registry', '/registry6'],
   [PathType.Me]: ['/me'],
@@ -36,7 +36,6 @@ export const routerConfig: RouteLocalItem[] = [
   {
     pathType: PathType.Me,
     component: MePage,
-    auth: true,
   },
   {
     pathType: PathType.Setting,

@@ -1,4 +1,4 @@
-import { Avatar } from '@components';
+import { LocalAvatar } from '@components';
 import { Card, Dialog, Ellipsis, Tag } from 'antd-mobile';
 import { DeleteOutline } from 'antd-mobile-icons';
 import IconThumbUpFill from '~icons/custom/thumb-up-fill';
@@ -16,7 +16,7 @@ export interface DreamCardProps {
 }
 
 export const DreamCard: FC<DreamCardProps> = ({ personal = false, className, dream }) => {
-  const { isPublic, dream: dreamContent, nickname, createAt } = dream;
+  const { isPublic, dream: dreamContent, nickname, createAt, userId } = dream;
 
   const extraTag = personal ? (
     !isPublic ? (
@@ -45,7 +45,7 @@ export const DreamCard: FC<DreamCardProps> = ({ personal = false, className, dre
     <Card
       title={
         <div className="flex items-center">
-          <Avatar className="w-32px h-32px text-22px rounded-16px mr-5px" />
+          <LocalAvatar className="w-32px h-32px text-22px rounded-16px mr-5px" nickname={nickname} userId={userId} />
           <Ellipsis rows={1} content={nickname} className="w-152px" />
         </div>
       }
