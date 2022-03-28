@@ -1,16 +1,17 @@
 import { Button, Divider, Form, Input, Toast } from 'antd-mobile';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import './style.scss';
 import { useMemo } from 'react';
 import { useAppNavigate } from '../../router';
-import { PageContainer } from '../../components/PageContainer';
+import { PageContainer } from '@components';
 import api from '../../api';
 import { userInfoAtom } from '@store/user';
 import { useRecoilState } from 'recoil';
 import { useTitle } from 'ahooks';
 
 export const LoginPage = () => {
+  const [searchParams] = useSearchParams();
   const [{ PathType }, { getPath, appNavigate }] = useAppNavigate();
 
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
@@ -37,7 +38,12 @@ export const LoginPage = () => {
     }
 
     setUserInfo(curUserInfo);
-    appNavigate(PathType.Home, { replace: true });
+
+    if (searchParams.get('redirectUrl')) {
+      location.replace(searchParams.get('redirectUrl')!);
+    } else {
+      appNavigate(PathType.Home, { replace: true });
+    }
 
     // const userInfo = res.data;
     //

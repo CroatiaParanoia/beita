@@ -15,7 +15,7 @@ export const defaultUserInfo: UserInfo = {
 
 export const userInfoAtom = atom<UserInfo>({
   key: 'userInfo',
-  default: defaultUserInfo,
+  default: commonStorage.get('userInfo') || defaultUserInfo,
   effects: [
     ({ onSet }) => {
       onSet((newValue, oldValue, isReset) => {

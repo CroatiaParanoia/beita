@@ -23,7 +23,7 @@ export const routerConfig: RouteLocalItem[] = [
   {
     pathType: PathType.Home,
     component: HomePage,
-    auth: true,
+    auth: false,
   },
   {
     pathType: PathType.Login,
@@ -36,22 +36,27 @@ export const routerConfig: RouteLocalItem[] = [
   {
     pathType: PathType.Me,
     component: MePage,
+    auth: true,
   },
   {
     pathType: PathType.Setting,
     component: SettingPage,
+    auth: true,
   },
   {
     pathType: PathType.Profile,
     component: ProfilePage,
+    auth: true,
   },
   {
     pathType: PathType.Dreams,
     component: DreamsPage,
+    auth: true,
   },
   {
     pathType: PathType.DreamCreate,
     component: DreamCreatePage,
+    auth: true,
   },
 ];
 

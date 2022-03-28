@@ -1,15 +1,20 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoginAtom } from '@store/user';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useMemo } from 'react';
+import { useAppNavigate } from './useAppNavigate';
 
 export const AuthProtect: FC = ({ children }) => {
-  let location = useLocation();
+  const [{ PathType }, { getPath }] = useAppNavigate();
+
+  const loginPath = useMemo(() => {
+    return getPath(PathType.Login, { redirectUrl: window.location.href });
+  }, []);
 
   const isLogin = useRecoilValue(isLoginAtom);
 
   if (!isLogin) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to={loginPath} replace />;
   }
 
   return children as ReactElement;

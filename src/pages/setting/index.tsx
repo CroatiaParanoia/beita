@@ -2,9 +2,15 @@ import { Header } from '@components/Header';
 import { PageContainer } from '@components/PageContainer';
 import { Button, List } from 'antd-mobile';
 import { useAppNavigate } from '../../router';
+import { userEvent } from '../../common/common-event';
 
 export const SettingPage = () => {
   const [{ PathType }, { appNavigate }] = useAppNavigate();
+
+  const handleLogout = () => {
+    userEvent.emit('logout');
+    appNavigate(PathType.Login, { replace: true });
+  };
 
   return (
     <PageContainer className="flex flex-col">
@@ -36,7 +42,7 @@ export const SettingPage = () => {
         </List>
 
         <div className="p-12px">
-          <Button block fill="none" color="danger">
+          <Button block fill="none" color="danger" onClick={handleLogout}>
             退出登录
           </Button>
         </div>
