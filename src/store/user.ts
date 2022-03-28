@@ -8,7 +8,6 @@ export const defaultUserInfo: UserInfo = {
   username: '',
   createAt: '',
   updateAt: '',
-  deleteAt: '',
   email: '',
   nickname: '',
   gender: Gender.Male,
